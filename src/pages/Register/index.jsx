@@ -6,10 +6,12 @@ import star from '~/assets/image/star.png';
 import InputField from './InputField';
 import { Link } from 'react-router-dom';
 import authApi from '~/Api/authApi';
+import { useLoading } from '~/contexts/LoadingContext';
 
 const cx = classNames.bind(style);
 
 function Register() {
+    const { setLoading } = useLoading();
     const [showPassword, setShowPassword] = useState(false);
     const [message, setMessage] = useState('');
     const [isError, setIsError] = useState(false); // Thêm để style thông báo
@@ -33,7 +35,7 @@ function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        setLoading(true);
         // Kiểm tra mật khẩu nhập lại
         if (formData.password !== formData.confirmPassword) {
             setMessage('Mật khẩu không khớp!');
@@ -67,6 +69,8 @@ function Register() {
             setMessage('Đăng ký thất bại. Vui lòng thử lại.');
             setIsError(true);
             console.error(error);
+        } finally {
+            setLoading(false);
         }
     };
 
