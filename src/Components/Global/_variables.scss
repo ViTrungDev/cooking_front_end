@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  --color-white:#fff;
+  --color-black:#000;
+  --colorPrimary: ##FBF0FB;
+  --color-btn:#E0CBCB;
+  --color-btn__lv2:#D29191;
+  --color-success:#155724;
+  --color-error:#fc0019;
+
+  --default-Layout-Header-height: 113px;
+  --max-width-container: 1440px;
+}
+.wrapper {
+  width: 100%;
+  max-width: var(--max-width-container);
+  margin: 0 auto;
+}
+li{
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}

@@ -1,0 +1,52 @@
+@import '../../../Global/GlobalStyle.scss';
+
+.footer{
+  height: 370px;
+  background: linear-gradient(90deg, rgba(15, 14, 14, 0.31) 9.5%, rgba(229, 210, 224, 0.31) 62.5%, rgba(255, 255, 255, 0.31) 100%);
+    .footer__title{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+    }
+    .footer__title li{
+      text-align: center;
+      width: 378px;
+      margin-top:38px;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+    .footer__title li:nth-child(2){
+      text-align: justify;
+      padding-left: 45px;
+    }
+    .footer__list{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+    }
+    .footer__list li{
+      padding-left: 45px;
+      text-align: justify;
+      width: 378px;
+      margin-bottom: 17px;
+    }
+    .footer__item{
+      width: 378px;
+      margin-top:38px;
+    }
+    .footer__item:nth-child(3){
+      padding-left:  22px;
+    }
+    .footer__item li:nth-child(3){
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    }
+    .footer__item li:nth-child(3) img:nth-child(2){
+      margin-right: 10px;
+      }
+}
