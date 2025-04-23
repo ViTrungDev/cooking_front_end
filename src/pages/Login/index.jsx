@@ -36,15 +36,28 @@ function Login() {
 
         try {
             const res = await authApi.login(formData);
-            setMessage('Đăng nhập thành công!');
-            setIsError(false);
             console.log(res.data);
 
-            // Reset form
-            setFormData({
-                email: '',
-                password: '',
-            });
+            if (res.data) {
+                setMessage('Đăng nhập thành công!');
+                setIsError(false);
+
+                setFormData({
+                    email: '',
+                    password: '',
+                });
+
+                localStorage.setItem('user', JSON.stringify(res.data.userName));
+                localStorage.setItem('isAdmin', res.data.isAdmin);
+                sessionStorage.setItem('accessToken', res.data.accessToken);
+                // Cài đặt cookie refreshToken
+                document.cookie = `refreshToken=${res.data.refreshToken}`;
+                console.log(document.cookie); // Kiểm tra cookie trong console
+
+                setTimeout(() => {
+                    window.location.href = '/';
+                });
+            }
         } catch (error) {
             setMessage('Đăng nhập thất bại. Vui lòng thử lại.');
             setIsError(true);

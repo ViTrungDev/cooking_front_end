@@ -57,6 +57,8 @@
 
     img {
       width: 50px;
+      color:var(--color-black);
+      line-height: 500;
     }
   }
 
@@ -173,4 +175,10 @@
       }
     }
   }
+}
+.user_Name{
+  margin-right: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
 }

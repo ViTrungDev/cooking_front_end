@@ -1,20 +1,97 @@
-@import 'src/styles/responsive';
+@import '../../Components/Global/GlobalStyle.scss';
 
-.main-content {
+.home__hero{
   width: 100%;
-  max-width: var(--max-width-container);
-  margin: 0 auto;
-  padding: 20px;
-
-  @include responsive(mobile) {
-    padding: 10px;
+  height: auto;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+.home__hero__content{
+  width: 650px;
+  margin:0 auto;
+  h1{
+    color: var(--color-black);
+    font-size: 96px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
   }
-
-  @include responsive(tablet) {
-    padding: 16px;
+  p{
+    color: var(--color-black);
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align:end;
+    margin-left:48px;
   }
+}.home__hero__contact{
+  display: flex;
+  width: 507px;
+  margin:0 auto;
+  
 
-  @include responsive(desktop) {
-    padding: 24px;
+  .home__hero__contact__item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 18px;
+    &:first-child{
+      margin-right: 64px;
+    }
+  }
+  .home__hero__contact__item__text{
+    display:block;
+    p{
+      text-align: left;
+      color: var(--color-black);
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+    span{
+      color: var(--color-black);
+      text-align: center;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+}
+.home__content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex:1;
+  margin-bottom: 102px;
+  .home__home__content--left__title{
+    padding: 59px;
+    width: 636px;
+    p{
+      color: var(--color-black);
+      text-align: center;
+      font-family: "Great Vibes";
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+}
+.home__main{
+  max-width:1260px;
+  margin:0 auto;
+  .home__main--title{
+    h2{
+      text-align: center;
+      text-align: center;
+      font-size: 48px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      margin-bottom: 42px;
+    }
   }
 }
