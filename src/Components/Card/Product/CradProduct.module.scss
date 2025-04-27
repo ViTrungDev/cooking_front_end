@@ -1,0 +1,49 @@
+@import '../../Global/GlobalStyle.scss';
+@import '../../Global/Variables.scss';
+.card-product {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 88px 33px;  
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.card-product__item{
+  max-width: 285px;
+  height:auto;
+  padding:15px;
+  img{
+    width: var(--card);
+    height: auto;
+    flex-shrink: 0;
+  }
+}
+.card__product--header{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  max-width: var(--card);
+  img{
+    width: 40px;
+    height:auto;
+    flex-shrink: 0;
+  }
+  h2{
+    color: var(--color-black);
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  p{
+    color: var(--color-black);
+    text-align: center;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+}
+.card-product__info{
+  max-width: var(--card);
+}

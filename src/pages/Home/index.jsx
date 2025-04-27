@@ -5,6 +5,7 @@ import logoBig from '~/assets/image/logo_big.png';
 import iconPhone from '~/assets/icon/icon_phone.png';
 import iconWeb from '~/assets/icon/icon_web.png';
 import banker from '~/assets/image/banker.png';
+import Card from '~/Components/Card/Product/CardProduct';
 
 const cx = classNames.bind(style);
 function Home() {
@@ -60,6 +61,9 @@ function Home() {
             <main className={cx('home__main')}>
                 <div className={cx('home__main--title')}>
                     <h2>GATEAUX KEM TƯƠI</h2>
+                </div>
+                <div className={cx('home__main--content')}>
+                    <Card />
                 </div>
             </main>
         </main>
