@@ -6,6 +6,7 @@ import iconPhone from '~/assets/icon/icon_phone.png';
 import iconWeb from '~/assets/icon/icon_web.png';
 import banker from '~/assets/image/banker.png';
 import Card from '~/Components/Card/Product/CardProduct';
+import CardBlog from '~/Components/Card/Blogs/CardBlog';
 
 const cx = classNames.bind(style);
 function Home() {
@@ -30,7 +31,7 @@ function Home() {
                     <div className={cx('home__hero__contact__item')}>
                         <img src={iconWeb} alt="icon web" />
                         <div className={cx('home__hero__contact__item__text')}>
-                            <span>Website www.banhngon.com</span>
+                            <span>www.threefairiesbakery.vn</span>
                         </div>
                     </div>
                 </div>
@@ -64,6 +65,15 @@ function Home() {
                 </div>
                 <div className={cx('home__main--content')}>
                     <Card />
+                </div>
+                <div className={cx('news')}>
+                    <h2 className={cx('news__title')}>TIN TỨC</h2>
+                    <h3 className={cx('news__title')}>
+                        Nổi bật nhất trong tuần
+                    </h3>
+                    <div className={cx('news__content')}>
+                        <CardBlog />
+                    </div>
                 </div>
             </main>
         </main>

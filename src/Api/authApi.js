@@ -10,5 +10,8 @@ const authApi = {
     product: (data) => {
         return axiosClient.get('/product/getall', data);
     },
+    blog: (data) => {
+        return axiosClient.get('/blog/getAll', data);
+    },
 };
 export default authApi;

@@ -3,7 +3,7 @@ import style from './style.module.scss';
 import classNames from 'classnames/bind';
 
 const cx = classNames.bind(style);
-const Loader = () => {
+const Loader = ({ className }) => {
     return (
         <div className={cx('js-preloader')}>
             <div className={cx('preloader-inner')}>

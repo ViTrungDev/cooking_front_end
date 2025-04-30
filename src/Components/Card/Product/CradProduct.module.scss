@@ -1,49 +1,131 @@
 @import '../../Global/GlobalStyle.scss';
 @import '../../Global/Variables.scss';
+
+.btn {
+  border-radius: 6px;
+  background: var(--color-btn__lv2);
+  color: var(--color-white);
+  text-align: center;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: rgba(255, 255, 255, 0.50);
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
 .card-product {
   display: grid;
   grid-template-columns: repeat(4, 1fr); 
-  gap: 88px 33px;  
+  gap: 24px 16px;  /* Giảm khoảng cách giữa các card để ảnh không bị dàn trải quá rộng */
   margin-top: 20px;
   margin-bottom: 20px;
 }
-.card-product__item{
+
+.card-product__item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   max-width: 285px;
-  height:auto;
-  padding:15px;
-  img{
-    width: var(--card);
-    height: auto;
-    flex-shrink: 0;
+  height: 100%;
+  padding: 15px;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    transform: scale(1.05);
   }
 }
-.card__product--header{
+
+.card-product__item img {
+  width: 257px;
+  height: 257px;
+  object-fit: cover;  /* Đảm bảo ảnh phủ đầy khung mà không bị biến dạng */
+  flex-shrink: 0;
+}
+
+.card__product--header {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   max-width: var(--card);
-  img{
-    width: 40px;
-    height:auto;
-    flex-shrink: 0;
-  }
-  h2{
-    color: var(--color-black);
-    text-align: center;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
-  p{
-    color: var(--color-black);
-    text-align: center;
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
 }
-.card-product__info{
+
+.card__product--header img {
+  width: 40px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.card__product--header h2 {
+  color: var(--color-black);
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.card__product--header p {
+  color: var(--color-black);
+  text-align: center;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.card-product__info {
   max-width: var(--card);
+}
+
+.card-product__name {
+  color: var(--color-black);
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.card-product__price {
+  margin-top: 4px;
+  color: var(--color__font--card);
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.btn__card--action {
+  margin-top: 3px;
+  display: flex;
+  column-gap: 11px;
+  justify-content: center;
+}
+
+.card {
+  background: var(--color-card);
+}
+
+.card__footer {
+  background: #F7EFEF;
+}
+
+.small-loader {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+}
+
+.card-product__image {
+  width: 257px;
+  height: 257px;
+  object-fit: cover; /* Đảm bảo ảnh phủ đầy khung mà không bị biến dạng */
 }
