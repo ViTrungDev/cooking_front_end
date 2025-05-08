@@ -4,6 +4,7 @@ import styles from './Header.module.scss';
 import logo from '~/assets/image/logo_pk.png';
 import corf from '~/assets/icon/corf.png';
 import { Link } from 'react-router-dom';
+import Home from '~/pages/Home';
 
 const cx = classNames.bind(styles);
 
@@ -47,7 +48,6 @@ function Header() {
                         <img src={logo} alt="Logo" />
                     </Link>
                 </div>
-                {/* Icon ☰ hiển thị trên mobile */}
                 <div
                     className={cx('mobile-menu-toggle')}
                     onClick={handleToggleMenu}
@@ -98,7 +98,7 @@ function Header() {
                             ❌
                         </div>
                         <ul>
-                            <li>Trang chủ</li>
+                            <Link to={Home}>Trang chủ</Link>
                             <li>Bánh sinh nhật</li>
                             <li>Bánh mỳ & bánh mặn</li>
                             <li>Cookies & minicake</li>

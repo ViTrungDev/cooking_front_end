@@ -7,6 +7,8 @@ import iconWeb from '~/assets/icon/icon_web.png';
 import banker from '~/assets/image/banker.png';
 import Card from '~/Components/Card/Product/CardProduct';
 import CardBlog from '~/Components/Card/Blogs/CardBlog';
+import banner__footer from '~/assets/image/banner__footer.png';
+import star from '~/assets/image/star.png';
 
 const cx = classNames.bind(style);
 function Home() {
@@ -76,6 +78,14 @@ function Home() {
                     </div>
                 </div>
             </main>
+            <div className={cx('form__action')}>
+                <img alt="banner__footer" src={banner__footer} />
+            </div>
+            <div className={cx('footer-section')}>
+                <img src={star} alt="star" className={cx('star')} />
+                <h2>Bánh ngọt 2024</h2>
+                <h3>THREE FAIRIES BAKERY</h3>
+            </div>
         </main>
     );
 }

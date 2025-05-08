@@ -1,15 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alice&display=swap');
 :root {
   --color-white:#fff;
   --color-black:#000;
-  --colorPrimary: ##FBF0FB;
+  --colorPrimary: #FBF0FB;
   --color-btn:#E0CBCB;
   --color-btn__lv2:#D29191;
   --color-success:#155724;
   --color-error:#fc0019;
   --color-card:#F0E0E0;
   --color__font--card:#C05252;
+  --color__detail:#FDDEDE;
 
   --default-Layout-Header-height: 113px;
   --max-width-container: 1440px;
