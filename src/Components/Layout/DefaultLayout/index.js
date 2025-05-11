@@ -13,7 +13,7 @@ function DefaultLayout({ children }) {
 
     return (
         <div className={cx('wrapper')}>
-            {loading && <Loader />} {/* Hiển thị loader khi loading true */}
+            {loading && <Loader />}
             <Header />
             <div className={cx('container')}>{children}</div>
             <Footer />

@@ -1,0 +1,33 @@
+.wapper{
+  width: 100%;
+  background-color: var(--color-white);
+}
+.header{
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  height: 100px;
+  .header__container{
+    display: flex;
+    align-items: center;
+    width:var(--max-width-container);
+    margin:0 auto;
+    h2{
+      font-weight: 400;
+      position: relative;
+      width: auto;
+      font-size: 30px;
+      margin-left: 20px;
+    }
+  }
+}
+
+.header__container {
+  display: flex;
+  align-items: center;
+}
+
+.header__container img {
+  width: 85px;
+  height: auto;
+}

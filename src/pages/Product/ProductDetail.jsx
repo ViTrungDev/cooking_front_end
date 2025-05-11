@@ -26,14 +26,12 @@ function ProductDetail() {
         if (count > 1) {
             setCount((prev) => prev - 1);
         }
-        console.log('Number', count);
     };
 
     const handlePlus = () => {
         if (count < 20) {
             setCount((prev) => prev + 1);
         }
-        console.log('Number', count);
     };
 
     useEffect(() => {
@@ -169,7 +167,7 @@ function ProductDetail() {
                                 </div>
                             </div>
                             <div className={cx('btn__action')}>
-                                <BtnAction variant="black" />
+                                <BtnAction variant="black" product={product} />
                             </div>
                         </div>
                     </div>

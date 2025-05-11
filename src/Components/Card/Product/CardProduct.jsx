@@ -99,7 +99,7 @@ function CradProduct() {
                                 </p>
                             </div>
                             <div className={cx('btn__card--action')}>
-                                <BtnAction variant="pink" />
+                                <BtnAction variant="pink" product={product} />
                             </div>
                         </div>
                     </Link>

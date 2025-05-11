@@ -47,7 +47,7 @@
   .nav__list--corf {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 20px;
 
     p {
       font-size: 20px;
@@ -59,6 +59,22 @@
       width: 50px;
       color:var(--color-black);
       line-height: 500;
+    }
+
+  }
+  .nav__list--corf--icon{
+    display: flex;
+    position: relative;
+    width: 23%;
+    .nav__list--corf--number{
+    position: absolute;
+      top:0px;
+      right: -35px;
+      padding:0px 5px 0px 5px;
+      background-color: var(--color-btn__lv2);
+      color:var(--color-white);
+      font-size:16px;
+      border-radius: 10px;;
     }
   }
 
@@ -142,7 +158,14 @@
 
       img {
         width: 50px;
+        position: relative;
       }
+      
+        .nav__list--corf--number{
+          position: absolute;
+          top:0px;
+          right: 0px;
+        }
     }
   }
 }
@@ -172,13 +195,14 @@
 
       img {
         width: 50px;
+
       }
     }
   }
 }
 .user_Name{
   margin-right: 10px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   cursor: pointer;
 }

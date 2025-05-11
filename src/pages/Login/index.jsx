@@ -47,13 +47,19 @@ function Login() {
                     password: '',
                 });
 
-                localStorage.setItem('user', JSON.stringify(res.data.userName));
+                localStorage.setItem(
+                    'currentUser',
+                    JSON.stringify({
+                        id: res.data.userId,
+                        userName: res.data.userName,
+                    }),
+                );
+
                 localStorage.setItem('isAdmin', res.data.isAdmin);
                 sessionStorage.setItem('accessToken', res.data.accessToken);
                 // Cài đặt cookie refreshToken
                 document.cookie = `refreshToken=${res.data.refreshToken}`;
-                console.log(document.cookie); // Kiểm tra cookie trong console
-
+                console.log(document.cookie);
                 setTimeout(() => {
                     window.location.href = '/';
                 });

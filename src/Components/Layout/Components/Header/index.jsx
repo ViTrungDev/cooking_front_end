@@ -5,27 +5,29 @@ import logo from '~/assets/image/logo_pk.png';
 import corf from '~/assets/icon/corf.png';
 import { Link } from 'react-router-dom';
 import Home from '~/pages/Home';
+import { useCart } from '~/contexts/CartContext';
 
 const cx = classNames.bind(styles);
 
 function Header() {
+    const { cartCount } = useCart();
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
     const [saveName, setSaveName] = useState('');
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(localStorage.getItem('currentUser'));
         if (user) {
             setSaveName(user);
         }
     }, []);
-
+    const username = saveName?.userName;
     const menuItems = [
-        'Trang chủ',
-        'Bánh sinh nhật',
-        'Bánh mỳ & bánh mặn',
-        'Cookies & minicake',
-        'Khuyến mại',
+        { label: 'Trang chủ', path: '/' },
+        { label: 'Bánh sinh nhật', path: '/banh-sinh-nhat' },
+        { label: 'Bánh mỳ & bánh mặn', path: '/banh-man' },
+        { label: 'Cookies & minicake', path: '/cookies-minicake' },
+        { label: 'Khuyến mại', path: '/khuyen-mai' },
     ];
 
     const handleToggleMenu = () => {
@@ -65,7 +67,12 @@ function Header() {
                                 })}
                                 onClick={() => handleSelectItem(index)}
                             >
-                                {item}
+                                <Link
+                                    to={item.path}
+                                    className={cx('nav__link')}
+                                >
+                                    {item.label}
+                                </Link>
                             </li>
                         ))}
                     </ul>
@@ -73,11 +80,19 @@ function Header() {
 
                 <div className={cx('nav__right')}>
                     <div className={cx('nav__list--corf')}>
-                        <img src={corf} alt="Giỏ hàng" />
+                        <Link to="/shopping-cart">
+                            <div className={cx('nav__list--corf--icon')}>
+                                <img src={corf} alt="Giỏ hàng" />
+                                <p className={cx('nav__list--corf--number')}>
+                                    {cartCount}
+                                </p>
+                            </div>
+                        </Link>
+
                         {saveName ? (
                             <p className={cx('user')}>
                                 <Link to="/login" className={cx('user_Name')}>
-                                    Xin chào {saveName}
+                                    Xin chào {username}
                                 </Link>
                             </p>
                         ) : (
