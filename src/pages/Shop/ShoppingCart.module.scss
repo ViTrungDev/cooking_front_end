@@ -69,7 +69,7 @@ $color-D9:#D9CACA;
     position: relative;
     .product__checkbox {
     input[type='checkbox'] {
-        appearance: none; // ẩn checkbox gốc
+        appearance: none; 
         width: 18px;
         height: 18px;
         border: 2px solid #ccc;
@@ -240,6 +240,9 @@ $color-D9:#D9CACA;
       color: var(--color-white);
       font-size: 16px;
       border-radius: 3px;
+      &:hover{
+        background-color: #e63946;
+      }
     }
   }
 }
@@ -269,5 +272,13 @@ $color-D9:#D9CACA;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+  }
+}
+.desc__title{
+  display: flex;
+  gap:20px;
+  p{
+    font-size: 16px;
+    color: rgba(0,0,0,0.5);
   }
 }

@@ -3,16 +3,18 @@ import { useToast } from '~/contexts/ToastContext';
 
 export default function useAddToCart() {
     const [isAdding, setIsAdding] = useState(false);
-    const { showToast } = useToast(); // Dùng toast toàn cục
+    const { showToast } = useToast(); // Toast toàn cục
 
-    const handleAddToCart = (onAddCallBack) => {
+    const handleAddToCart = (product, onAddCallBack) => {
         setIsAdding(true);
+
         setTimeout(() => {
             if (typeof onAddCallBack === 'function') {
-                onAddCallBack();
+                onAddCallBack(product);
             }
+
             setIsAdding(false);
-            showToast('Thêm thành công!');
+            showToast('Thêm sản phẩm vào giỏ hàng thành công!');
         }, 1000);
     };
 

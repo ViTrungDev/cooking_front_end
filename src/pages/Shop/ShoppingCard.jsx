@@ -1,18 +1,29 @@
 import classNames from 'classnames/bind';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import style from './ShoppingCart.module.scss';
 import Banner_header from '~/assets/image/Banner__header.png';
 import { useCart } from '~/contexts/CartContext';
 import BASE_URL from '~/Api/config';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import star from '~/assets/image/star.png';
 
 const cx = classNames.bind(style);
 
 function ShoppingCard() {
-    const { cartItems, removeFromCart, updateQuantity } = useCart();
+    const { cartItems, setCartItems, removeFromCart, updateQuantity } =
+        useCart();
     const [selectItems, setSelectItems] = useState([]);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    // ✅ Cập nhật giỏ hàng từ localStorage khi mount hoặc khi location.state thay đổi
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        const userId = user?.id;
+        const cartKey = `cartItems_${userId}`;
+        const storedCart = JSON.parse(localStorage.getItem(cartKey)) || [];
+        setCartItems(storedCart);
+    }, [location.state]); // 🔁 reload mỗi khi quay lại từ trang khác
 
     const handleSelectALL = () => {
         if (selectItems.length === cartItems.length) {
@@ -21,12 +32,12 @@ function ShoppingCard() {
             setSelectItems(cartItems.map((item) => item.id));
         }
     };
+
     const handleBuy = () => {
         const selectedProducts = cartItems.filter((item) =>
             selectItems.includes(item.id),
         );
-
-        const encodedData = btoa(JSON.stringify(selectedProducts));
+        const encodedData = btoa(JSON.stringify(selectedProducts)); // Mã hóa giỏ hàng thành chuỗi Base64
         navigate(`/checkout?state=${encodedData}`);
     };
 
@@ -78,9 +89,9 @@ function ShoppingCard() {
                                     Hiện tại chưa có sản phẩm trong giỏ hàng.
                                 </p>
                             ) : (
-                                cartItems.map((item, index) => (
+                                cartItems.map((item) => (
                                     <div
-                                        key={item.id || index}
+                                        key={item.id}
                                         className={cx('product__item')}
                                     >
                                         <div className={cx('product__info')}>
@@ -110,7 +121,14 @@ function ShoppingCard() {
                                                     }
                                                     alt={item.name || 'No name'}
                                                 />
-                                                <h2>{item.name}</h2>
+                                                <div
+                                                    className={cx(
+                                                        'desc__title',
+                                                    )}
+                                                >
+                                                    <h2>{item.name}</h2>
+                                                    <p>{`Size: ${item.size}`}</p>
+                                                </div>
                                             </div>
                                         </div>
                                         <p>{item.price?.toLocaleString()}đ</p>
@@ -154,14 +172,12 @@ function ShoppingCard() {
                                                 </button>
                                             </div>
                                         </div>
-
                                         <p>
                                             {(
                                                 item.price * item.quantity
                                             )?.toLocaleString()}
                                             đ
                                         </p>
-
                                         <div className={cx('product__action')}>
                                             <button
                                                 onClick={() =>
@@ -187,13 +203,15 @@ function ShoppingCard() {
                             <input
                                 type="checkbox"
                                 onChange={handleSelectALL}
+                                name="checkerAll"
+                                id="checkerAll"
                                 checked={
                                     cartItems.length > 0 &&
                                     selectItems.length === cartItems.length
                                 }
                             />
                         </div>
-                        <label>Chọn tất cả</label>
+                        <label htmlFor="checkerAll">Chọn tất cả</label>
                     </div>
                     <button onClick={handleDeleteSelected}>Xóa</button>
                 </div>
@@ -208,6 +226,7 @@ function ShoppingCard() {
                     </button>
                 </div>
             </div>
+
             <div className={cx('footer-section')}>
                 <img src={star} alt="star" className={cx('star')} />
                 <h2>Bánh ngọt 2024</h2>

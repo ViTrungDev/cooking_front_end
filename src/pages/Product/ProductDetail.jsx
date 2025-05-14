@@ -17,15 +17,32 @@ function ProductDetail() {
     const location = useLocation();
     const productFromState = location.state?.product || null;
     const [product, setProduct] = useState(productFromState || null);
+    const [selectedSize, setSelectedSize] = useState(19);
     const { slug } = useParams();
     const { loading, setLoading } = useLoading();
     const [count, setCount] = useState(1);
     const productRef = useRef(null);
 
+    const getPriceBySize = (basePrice, size) => {
+        switch (size) {
+            case '21':
+            case 21:
+                return basePrice + 10000;
+            case '25':
+            case 25:
+                return basePrice + 20000;
+            default:
+                return basePrice;
+        }
+    };
+
     const handleMinus = () => {
         if (count > 1) {
             setCount((prev) => prev - 1);
         }
+    };
+    const handleSizeChange = (e) => {
+        setSelectedSize(e.target.value);
     };
 
     const handlePlus = () => {
@@ -47,6 +64,10 @@ function ProductDetail() {
             });
         }
     }, [product]);
+    useEffect(() => {
+        setSelectedSize('19'); // reset về size mặc định
+        setCount(1); // reset về số lượng mặc định
+    }, [slug]);
     const fetchProduct = async (slug) => {
         try {
             setLoading(true);
@@ -95,7 +116,12 @@ function ProductDetail() {
                                 {product.name}
                             </h2>
                             <p className={cx('desc')}>
-                                Giá: {product.price.toLocaleString('vi-VN')} VND
+                                Giá:{' '}
+                                {getPriceBySize(
+                                    product.price,
+                                    selectedSize,
+                                ).toLocaleString('vi-VN')}{' '}
+                                VND
                             </p>
                             <p className={cx('desc')}>Kích thước:</p>
                             <div className={cx('handleSelectSize')}>
@@ -104,8 +130,9 @@ function ProductDetail() {
                                         type="radio"
                                         id="size-small"
                                         name="size"
-                                        value="small"
+                                        value="19"
                                         hidden
+                                        onChange={handleSizeChange}
                                     />
                                     <label
                                         htmlFor="size-small"
@@ -118,8 +145,9 @@ function ProductDetail() {
                                         type="radio"
                                         id="size-medium"
                                         name="size"
-                                        value="medium"
+                                        value="21"
                                         hidden
+                                        onChange={handleSizeChange}
                                     />
                                     <label
                                         htmlFor="size-medium"
@@ -132,8 +160,9 @@ function ProductDetail() {
                                         type="radio"
                                         id="size-large"
                                         name="size"
-                                        value="large"
+                                        value="25"
                                         hidden
+                                        onChange={handleSizeChange}
                                     />
                                     <label
                                         htmlFor="size-large"
@@ -167,7 +196,12 @@ function ProductDetail() {
                                 </div>
                             </div>
                             <div className={cx('btn__action')}>
-                                <BtnAction variant="black" product={product} />
+                                <BtnAction
+                                    variant="black"
+                                    product={product}
+                                    selectedSize={selectedSize}
+                                    count={count}
+                                />
                             </div>
                         </div>
                     </div>
