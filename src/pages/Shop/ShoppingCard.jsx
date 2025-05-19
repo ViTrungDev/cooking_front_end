@@ -37,8 +37,12 @@ function ShoppingCard() {
         const selectedProducts = cartItems.filter((item) =>
             selectItems.includes(item.id),
         );
-        const encodedData = btoa(JSON.stringify(selectedProducts)); // Mã hóa giỏ hàng thành chuỗi Base64
-        navigate(`/checkout?state=${encodedData}`);
+
+        const jsonString = JSON.stringify(selectedProducts);
+        const utf8Bytes = new TextEncoder().encode(jsonString);
+        const base64String = btoa(String.fromCharCode(...utf8Bytes));
+
+        navigate(`/checkout?state=${base64String}`);
     };
 
     const handleCheckBoxChange = (id) => {

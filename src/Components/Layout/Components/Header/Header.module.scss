@@ -10,10 +10,13 @@
 
 .navbar {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  position: relative;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    padding: 0 41px;
+    background: #fff;
+    z-index: 999;
 
   .navbar__image img {
     height: 111px;
@@ -205,4 +208,30 @@
   font-size: 18px;
   font-weight: 500;
   cursor: pointer;
+}
+.user{
+  position: relative;
+  .userName_active{
+    position: absolute;
+    z-index: 9999;
+    background-color: var(--color-white);
+    padding: 10px;
+    border-radius: 3px;
+    width: 150px;
+    top: 35px;
+    left: 4px;
+    .use_ac{
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(134.5deg, #fff 50%, transparent 50%);
+      transform: rotate(46deg);
+      top: -8px;
+      left: 65px;
+      z-index: 0;
+    }
+    .list__item{
+      padding: 5px;
+    }
+  }
 }

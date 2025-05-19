@@ -34,14 +34,14 @@
   padding: 15px;
   transition: all 0.3s ease-in-out;
   &:hover {
-    transform: scale(1.01);
+    transform: scale(1.02);
   }
 }
 
 .card-product__item img {
   width: 257px;
   height: 257px;
-  object-fit: cover;  /* Đảm bảo ảnh phủ đầy khung mà không bị biến dạng */
+  object-fit: cover; 
   flex-shrink: 0;
 }
 
@@ -87,6 +87,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  margin-top: 10px;
 }
 
 .card-product__price {

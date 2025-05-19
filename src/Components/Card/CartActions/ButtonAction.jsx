@@ -14,6 +14,7 @@ function ButtonAction({ variant = 'pink', product, count, selectedSize }) {
     const handleToBuy = (e, product) => {
         e.preventDefault();
         e.stopPropagation();
+
         const size = selectedSize || 19;
         const quantity = count || 1;
         const itemToBuy = [
@@ -23,8 +24,14 @@ function ButtonAction({ variant = 'pink', product, count, selectedSize }) {
                 quantity,
             },
         ];
-        const encodedData = btoa(JSON.stringify(itemToBuy)); // ✅ Mã hóa đúng chuẩn Base64
-        navigate(`/checkout?state=${encodedData}`);
+
+        // Mã hóa sản phẩm thành Base64 an toàn cho Unicode
+        const jsonString = JSON.stringify(itemToBuy);
+        const utf8Bytes = new TextEncoder().encode(jsonString);
+        const base64String = btoa(String.fromCharCode(...utf8Bytes));
+
+        // Chuyển hướng đến trang checkout và truyền dữ liệu mã hóa
+        navigate(`/checkout?state=${base64String}`);
     };
 
     const handleAddClick = () => {

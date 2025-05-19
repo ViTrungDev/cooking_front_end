@@ -12,18 +12,38 @@ import BtnAction from '~/Components/Card/CartActions/ButtonAction';
 
 const cx = classNames.bind(style);
 
-function CradProduct() {
+function CradProduct({
+    filterClassify = null,
+    className,
+    products: productsFromProps,
+}) {
     const [products, setProducts] = useState([]);
     const { loading, setLoading } = useLoading();
 
     useEffect(() => {
+        if (productsFromProps) {
+            setProducts(productsFromProps);
+        }
+    }, [productsFromProps]);
+
+    useEffect(() => {
         // Kiểm tra xem sản phẩm đã có trong state chưa
-        if (products.length === 0) {
+        if (!productsFromProps && products.length === 0) {
             const fetchProducts = async () => {
                 try {
                     setLoading(true);
                     const response = await authApi.product();
-                    const productsList = response.data.products;
+                    let productsList = response.data.products;
+                    console.log(productsList);
+                    if (filterClassify) {
+                        productsList = productsList.filter(
+                            (product) => product.classify === filterClassify,
+                        );
+                    }
+                    if (productsFromProps) {
+                        setProducts(productsFromProps);
+                        return;
+                    }
 
                     // Áp dụng thuật toán Fisher-Yates Shuffle
                     const shuffledProducts = shuffleArray(productsList);
@@ -39,7 +59,7 @@ function CradProduct() {
 
             fetchProducts();
         }
-    }, [products.length, setLoading]);
+    }, [products.length, setLoading, filterClassify, productsFromProps]);
 
     // Thuật toán Fisher-Yates Shuffle
     const shuffleArray = (array) => {
@@ -59,7 +79,7 @@ function CradProduct() {
     }
 
     return (
-        <div className={cx('card-product')}>
+        <div className={cx('card-product', className)}>
             {products.map((product) => {
                 // Tạo slug từ tên sản phẩm
                 const productSlug = slugify(product.name, {

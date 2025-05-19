@@ -1,12 +1,12 @@
 import classNames from 'classnames/bind';
 import style from './Checkout.module.scss';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import BASE_URL from '~/Api/config';
 import authApi from '~/Api/authApi';
 
 const cx = classNames.bind(style);
+
 function Checkout() {
     const navigate = useNavigate();
     const location = useLocation();
@@ -18,16 +18,44 @@ function Checkout() {
 
     const SHIPPING_FEE = 45000;
 
+    // ✅ Lấy giỏ hàng từ URL (nếu có) và giải mã Unicode-safe
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        const userId = user?.id;
+        const cartKey = `cartItems_${userId}`;
+        const queryParams = new URLSearchParams(location.search);
+        const encodedData = queryParams.get('state');
+
+        if (encodedData) {
+            try {
+                const binaryStr = atob(encodedData);
+                const bytes = Uint8Array.from(binaryStr, (ch) =>
+                    ch.charCodeAt(0),
+                );
+                const jsonStr = new TextDecoder().decode(bytes);
+                const items = JSON.parse(jsonStr);
+                setCartItems(items);
+            } catch (error) {
+                console.error('❌ Lỗi giải mã giỏ hàng từ URL:', error);
+                setCartItems([]);
+            }
+        } else if (userId) {
+            const storedCart = JSON.parse(localStorage.getItem(cartKey)) || [];
+            setCartItems(storedCart);
+        }
+    }, [location.search]);
+
     const handlePlaceOrder = async () => {
         if (!name || !phone || !address) {
-            console.log('Vui lòng nhập đủ thông tin');
+            console.log('⚠️ Vui lòng nhập đủ thông tin');
             return;
         }
 
         const user = JSON.parse(localStorage.getItem('currentUser'));
         const userId = user?.id;
         const cartKey = `cartItems_${userId}`;
-        const storedCart = JSON.parse(localStorage.getItem(cartKey)) || [];
+        const storedCart =
+            JSON.parse(localStorage.getItem(cartKey)) || cartItems;
 
         const orderData = {
             customer_name: name,
@@ -43,7 +71,6 @@ function Checkout() {
 
         try {
             const response = await authApi.checkout(orderData);
-
             if (response.status === 200 || response.status === 201) {
                 console.log('✅ Đặt hàng thành công!');
 
@@ -52,63 +79,40 @@ function Checkout() {
                         !orderData.details.some(
                             (ordered) =>
                                 ordered.product_id === item.id &&
-                                ordered.size === parseInt(item.size),
+                                parseInt(item.size) === ordered.size,
                         ),
                 );
 
                 localStorage.setItem(cartKey, JSON.stringify(remainingItems));
                 setCartItems(remainingItems);
+
                 setTimeout(() => {
                     navigate('/shopping-cart', { state: { reload: true } });
                 }, 100);
             } else {
-                console.error('Đặt hàng thất bại:', response);
+                console.error('❌ Đặt hàng thất bại:', response);
             }
         } catch (error) {
-            console.error('Lỗi khi đặt hàng:', error);
+            console.error('❌ Lỗi khi đặt hàng:', error);
         }
     };
 
-    // Tính tổng tiền hàng
-    const totalProductPrice = cartItems.reduce((total, item) => {
-        return total + item.price * item.quantity;
-    }, 0);
+    const totalProductPrice = cartItems.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0,
+    );
 
-    // Tổng thanh toán = tiền hàng + ship
     const totalPayment = totalProductPrice + SHIPPING_FEE;
 
-    // Giải mã dữ liệu từ URL
-    useEffect(() => {
-        const queryParams = new URLSearchParams(location.search);
-        const encodedData = queryParams.get('state');
-
-        if (encodedData) {
-            try {
-                const decodedData = atob(encodedData); // Giải mã Base64
-                const items = JSON.parse(decodedData); // Chuyển đổi chuỗi JSON thành mảng đối tượng
-                setCartItems(items); // Lưu vào state
-            } catch (error) {
-                console.error('Error decoding cart items:', error);
-            }
-        }
-    }, [location.search]);
-
-    // Các hàm xử lý địa chỉ
-    const handleEditAddress = () => {
-        setIsEditing(true);
-    };
-
-    const handleCancel = () => {
-        setIsEditing(false);
-    };
-
+    const handleEditAddress = () => setIsEditing(true);
+    const handleCancel = () => setIsEditing(false);
     const handleSave = () => {
         const newAddress = document.getElementById('new-address').value;
         const newPhone = document.getElementById('new-phone').value;
         const newName = document.getElementById('new-name').value;
         setAddress(newAddress);
-        setName(newName);
         setPhone(newPhone);
+        setName(newName);
         setIsEditing(false);
     };
 
@@ -146,7 +150,6 @@ function Checkout() {
                     )}
                 </div>
 
-                {/* Form chỉnh sửa địa chỉ */}
                 {isEditing && (
                     <div className={cx('address-form')}>
                         <div className={cx('form-wrapper')}>
@@ -193,7 +196,6 @@ function Checkout() {
                     </div>
                 )}
 
-                {/* Hiển thị các sản phẩm */}
                 <div className={cx('checkout__main')}>
                     <p>Sản phẩm</p>
                     <p>Đơn giá</p>
@@ -220,16 +222,17 @@ function Checkout() {
                                     <p>
                                         {(
                                             item.price * item.quantity
-                                        )?.toLocaleString()}
+                                        )?.toLocaleString()}{' '}
                                         VND
                                     </p>
                                 </li>
                             ))}
                         </ul>
                     ) : (
-                        <p>Không có sản phẩm trong giỏ hàng</p>
+                        <p>Chưa có sản phẩm </p>
                     )}
                 </div>
+
                 <div className={cx('checkout_buy')}>
                     <h3>Phương thức thanh toán</h3>
                     <div className={cx('checkout__items')}>
@@ -241,7 +244,7 @@ function Checkout() {
                             defaultChecked
                         />
                         <label htmlFor="ThanhToan1">
-                            Thanh Toán khi nhận hàng
+                            Thanh toán khi nhận hàng
                         </label>
                     </div>
                     <div className={cx('checkout__items')}>
@@ -252,7 +255,7 @@ function Checkout() {
                             value="CreditCard"
                             disabled
                         />
-                        <label htmlFor="ThanhToan2">Thẻ Tín dụng/Ghi nợ</label>
+                        <label htmlFor="ThanhToan2">Thẻ tín dụng/Ghi nợ</label>
                     </div>
                     <div className={cx('checkout__items')}>
                         <input
@@ -265,6 +268,7 @@ function Checkout() {
                         <label htmlFor="ThanhToan3">Google Pay</label>
                     </div>
                 </div>
+
                 <div className={cx('checkout__price')}>
                     <div className={cx('check__price--item')}>
                         <div className={cx('price__All', 'price')}>
@@ -272,7 +276,7 @@ function Checkout() {
                             <p>{totalProductPrice.toLocaleString()} VND</p>
                         </div>
                         <div className={cx('price__Ship', 'price')}>
-                            <p>Tổng tiền phí vận chuyển</p>
+                            <p>Phí vận chuyển</p>
                             <p>{SHIPPING_FEE.toLocaleString()} VND</p>
                         </div>
                         <div className={cx('all_buy', 'price')}>
@@ -283,13 +287,14 @@ function Checkout() {
                         </div>
                     </div>
                 </div>
+
                 <div className={cx('action__buy')}>
                     <p>
                         Khi nhấn 'Đặt hàng', bạn đã xác nhận rằng bạn đồng ý với{' '}
                         <Link to="#" className={cx('Link')}>
                             Điều khoản
                         </Link>{' '}
-                        Three Fairies Bakery của Three Fairies Bakery
+                        của Three Fairies Bakery
                     </p>
                     <button
                         onClick={handlePlaceOrder}

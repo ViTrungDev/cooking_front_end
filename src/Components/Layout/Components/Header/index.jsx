@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import logo from '~/assets/image/logo_pk.png';
 import corf from '~/assets/icon/corf.png';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Home from '~/pages/Home';
 import { useCart } from '~/contexts/CartContext';
 
@@ -14,7 +14,26 @@ function Header() {
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
     const [saveName, setSaveName] = useState('');
+    const [show, setShow] = useState(false);
+    const location = useLocation();
 
+    const [hovering, setHovering] = useState(false);
+
+    const handleMouseEnter = () => {
+        setHovering(true);
+    };
+
+    const handleMouseLeave = () => {
+        setHovering(false);
+    };
+
+    const handleShow = () => {
+        if (show === true) {
+            setShow(false);
+        } else {
+            setShow(true);
+        }
+    };
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('currentUser'));
         if (user) {
@@ -22,12 +41,20 @@ function Header() {
         }
     }, []);
     const username = saveName?.userName;
-    const menuItems = [
-        { label: 'Trang chủ', path: '/' },
-        { label: 'Bánh sinh nhật', path: '/banh-sinh-nhat' },
-        { label: 'Bánh mỳ & bánh mặn', path: '/banh-man' },
-        { label: 'Cookies & minicake', path: '/cookies-minicake' },
-        { label: 'Khuyến mại', path: '/khuyen-mai' },
+    const menuItems = useMemo(
+        () => [
+            { label: 'Trang chủ', path: '/' },
+            { label: 'Bánh sinh nhật', path: '/banh-sinh-nhat' },
+            { label: 'Bánh mỳ & bánh mặn', path: '/banh-man' },
+            { label: 'Cookies & minicake', path: '/cookies-minicake' },
+            { label: 'Khuyến mại', path: '/khuyen-mai' },
+        ],
+        [],
+    );
+    const menuUser = [
+        { label: 'Trang cá nhân', path: '/profile' },
+        { label: 'Đơn mua', path: '/shopping-buy' },
+        { label: 'Đăng xuất', path: '/logout' },
     ];
 
     const handleToggleMenu = () => {
@@ -37,9 +64,15 @@ function Header() {
     const handleCloseMenu = () => {
         setMobileMenuOpen(false);
     };
+    useEffect(() => {
+        const index = menuItems.findIndex(
+            (item) => item.path === location.pathname,
+        );
+        setActiveIndex(index !== -1 ? index : 0);
+    }, [location.pathname, menuItems]);
     const handleSelectItem = (index) => {
         setActiveIndex(index);
-        setMobileMenuOpen(false); // Đóng menu khi chọn một mục
+        setMobileMenuOpen(false);
     };
 
     return (
@@ -90,11 +123,33 @@ function Header() {
                         </Link>
 
                         {saveName ? (
-                            <p className={cx('user')}>
-                                <Link to="/login" className={cx('user_Name')}>
+                            <div className={cx('user')}>
+                                <div
+                                    className={cx('user_Name')}
+                                    onClick={handleShow}
+                                    onMouseEnter={handleMouseEnter}
+                                    onMouseLeave={handleMouseLeave}
+                                >
                                     Xin chào {username}
-                                </Link>
-                            </p>
+                                </div>
+                                {(show || hovering) && (
+                                    <div className={cx('userName_active')}>
+                                        <div className={cx('use_ac')}></div>
+                                        <ul className={cx('user_list')}>
+                                            {menuUser.map((items, index) => (
+                                                <li
+                                                    key={index}
+                                                    className={cx('list__item')}
+                                                >
+                                                    <Link to={items.path}>
+                                                        {items.label}
+                                                    </Link>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
                         ) : (
                             <p className={cx('user')}>
                                 <Link to="/login">Đăng nhập</Link>
