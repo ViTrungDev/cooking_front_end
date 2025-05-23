@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React from 'react';
 import { publicRoutes } from '~/routes';
 import { DefaultLayout } from '~/Components/Layout';
+import NotFound from './pages/NotFound/NotFound';
 
 function App() {
     return (
@@ -26,6 +27,7 @@ function App() {
                             />
                         );
                     })}
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>
         </Router>

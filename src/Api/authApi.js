@@ -16,5 +16,14 @@ const authApi = {
     checkout: (data) => {
         return axiosClient.post('/order/create', data);
     },
+    shoppingbuy: (userId, data) => {
+        return axiosClient.get(`/order/getAllbyID?user_id=${userId}`, data);
+    },
+    profile: (userId, data) => {
+        return axiosClient.get(`/user/${userId}`, data);
+    },
+    updateProfile: (userId, data) => {
+        return axiosClient.put(`/user/${userId}`, data);
+    },
 };
 export default authApi;

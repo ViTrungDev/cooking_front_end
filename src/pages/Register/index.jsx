@@ -65,6 +65,7 @@ function Register() {
                 password: '',
                 confirmPassword: '',
             });
+            window.location.href = '/login';
         } catch (error) {
             setMessage('Đăng ký thất bại. Vui lòng thử lại.');
             setIsError(true);

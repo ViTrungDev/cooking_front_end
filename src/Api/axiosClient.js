@@ -30,6 +30,7 @@ axiosClient.interceptors.response.use(
             localStorage.removeItem('currentUser');
             localStorage.removeItem('cartItems');
             localStorage.removeItem('isAdmin');
+            localStorage.removeItem('email');
             sessionStorage.removeItem('accessToken');
             Cookies.remove('refreshToken');
 

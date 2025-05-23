@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import Cookies from 'js-cookie';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import logo from '~/assets/image/logo_pk.png';
@@ -18,6 +19,17 @@ function Header() {
     const location = useLocation();
 
     const [hovering, setHovering] = useState(false);
+
+    const handleLogout = () => {
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('cartItems');
+        localStorage.removeItem('isAdmin');
+        sessionStorage.removeItem('accessToken');
+        sessionStorage.removeItem('email');
+        Cookies.remove('refreshToken');
+
+        window.location.href = '/login';
+    };
 
     const handleMouseEnter = () => {
         setHovering(true);
@@ -141,9 +153,23 @@ function Header() {
                                                     key={index}
                                                     className={cx('list__item')}
                                                 >
-                                                    <Link to={items.path}>
-                                                        {items.label}
-                                                    </Link>
+                                                    {items.label ===
+                                                    'Đăng xuất' ? (
+                                                        <span
+                                                            onClick={
+                                                                handleLogout
+                                                            }
+                                                            className={cx(
+                                                                'logout-btn',
+                                                            )}
+                                                        >
+                                                            {items.label}
+                                                        </span>
+                                                    ) : (
+                                                        <Link to={items.path}>
+                                                            {items.label}
+                                                        </Link>
+                                                    )}
                                                 </li>
                                             ))}
                                         </ul>

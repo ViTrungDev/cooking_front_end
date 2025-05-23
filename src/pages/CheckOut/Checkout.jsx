@@ -56,7 +56,6 @@ function Checkout() {
         const cartKey = `cartItems_${userId}`;
         const storedCart =
             JSON.parse(localStorage.getItem(cartKey)) || cartItems;
-
         const orderData = {
             customer_name: name,
             phone,
@@ -65,7 +64,7 @@ function Checkout() {
                 product_id: item.id,
                 size: parseInt(item.size),
                 quantity: item.quantity,
-                price: item.price,
+                price: item.price + SHIPPING_FEE,
             })),
         };
 

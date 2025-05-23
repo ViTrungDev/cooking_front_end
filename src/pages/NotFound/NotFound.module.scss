@@ -1,0 +1,51 @@
+.not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fceabb, #f8b500);
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  .content {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+
+    h1 {
+      font-size: 6rem;
+      margin: 0;
+      color: #f85a40;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin: 20px 0 10px;
+      color: #333;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .home-button {
+      display: inline-block;
+      padding: 10px 24px;
+      background-color: #f85a40;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background-color: #e0482e;
+      }
+    }
+  }
+}

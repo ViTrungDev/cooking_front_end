@@ -54,7 +54,7 @@ function Login() {
                         userName: res.data.userName,
                     }),
                 );
-
+                localStorage.setItem('email', formData.email);
                 localStorage.setItem('isAdmin', res.data.isAdmin);
                 sessionStorage.setItem('accessToken', res.data.accessToken);
                 // Cài đặt cookie refreshToken
