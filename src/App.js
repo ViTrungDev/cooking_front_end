@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React from 'react';
-import { publicRoutes } from '~/routes';
+import { publicRoutes, privateRoutes } from '~/routes';
 import { DefaultLayout } from '~/Components/Layout';
 import NotFound from './pages/NotFound/NotFound';
 
@@ -24,6 +24,20 @@ function App() {
                                         <Page />
                                     </Layout>
                                 }
+                            />
+                        );
+                    })}
+
+                    {privateRoutes.map((route, index) => {
+                        const Layout =
+                            route.layout === null
+                                ? React.Fragment
+                                : route.layout;
+                        return (
+                            <Route
+                                key={index + publicRoutes.length}
+                                path={route.path}
+                                element={<Layout>{route.element}</Layout>}
                             />
                         );
                     })}

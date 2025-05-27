@@ -11,6 +11,10 @@ import Cookies from '~/pages/Navbar__cookies/Cookies';
 import Promotion from '~/pages/Navbar__promotion/Promotion';
 import ShoppingBuy from '~/pages/ShoppingBuy/ShoppingBuy';
 import Profile from '~/pages/Profile/Profile';
+import NotFound from '~/pages/NotFound/NotFound';
+import RouterPrivate from '~/Components/RoutesPrivate/RouterPrivate';
+import Admin from '~/pages/Admin/Admin';
+import Manage from '~/Components/Layout/LayoutManage/Manage';
 
 const publicRoutes = [
     { path: '/', component: Home },
@@ -25,7 +29,18 @@ const publicRoutes = [
     { path: '/cookies-minicake', component: Cookies },
     { path: '/khuyen-mai', component: Promotion },
     { path: '/profile', component: Profile },
+    { path: '/404', component: NotFound },
 ];
-const privateRoutes = [];
+const privateRoutes = [
+    {
+        path: '/admin',
+        element: (
+            <RouterPrivate requiredRole="admin">
+                <Admin />
+            </RouterPrivate>
+        ),
+        layout: Manage,
+    },
+];
 
 export { privateRoutes, publicRoutes };
