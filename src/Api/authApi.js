@@ -7,6 +7,13 @@ const authApi = {
     login: (data) => {
         return axiosClient.post('/authentication/login', data);
     },
+    refreshToken: (data) => {
+        return axiosClient.post(
+            '/api/authentication/refresh-token',
+            {},
+            { withCredentials: true },
+        );
+    },
     product: (data) => {
         return axiosClient.get('/product/getall', data);
     },

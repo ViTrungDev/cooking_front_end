@@ -23,7 +23,7 @@ function ShoppingCard() {
         const cartKey = `cartItems_${userId}`;
         const storedCart = JSON.parse(localStorage.getItem(cartKey)) || [];
         setCartItems(storedCart);
-    }, [location.state]); // 🔁 reload mỗi khi quay lại từ trang khác
+    }, [location.state, setCartItems]); // 🔁 reload mỗi khi quay lại từ trang khác
 
     const handleSelectALL = () => {
         if (selectItems.length === cartItems.length) {

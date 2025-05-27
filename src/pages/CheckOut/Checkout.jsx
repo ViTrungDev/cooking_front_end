@@ -4,6 +4,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import BASE_URL from '~/Api/config';
 import authApi from '~/Api/authApi';
+import { useToast } from '~/contexts/ToastContext';
 
 const cx = classNames.bind(style);
 
@@ -17,6 +18,7 @@ function Checkout() {
     const [isEditing, setIsEditing] = useState(false);
 
     const SHIPPING_FEE = 45000;
+    const { showToast } = useToast();
 
     // ✅ Lấy giỏ hàng từ URL (nếu có) và giải mã Unicode-safe
     useEffect(() => {
@@ -47,7 +49,7 @@ function Checkout() {
 
     const handlePlaceOrder = async () => {
         if (!name || !phone || !address) {
-            console.log('⚠️ Vui lòng nhập đủ thông tin');
+            showToast('⚠️ Vui lòng nhập đủ thông tin');
             return;
         }
 
@@ -71,7 +73,7 @@ function Checkout() {
         try {
             const response = await authApi.checkout(orderData);
             if (response.status === 200 || response.status === 201) {
-                console.log('✅ Đặt hàng thành công!');
+                showToast('✅ Đặt hàng thành công!');
 
                 const remainingItems = storedCart.filter(
                     (item) =>
@@ -89,10 +91,10 @@ function Checkout() {
                     navigate('/shopping-cart', { state: { reload: true } });
                 }, 100);
             } else {
-                console.error('❌ Đặt hàng thất bại:', response);
+                showToast('❌ Đặt hàng thất bại:', response);
             }
         } catch (error) {
-            console.error('❌ Lỗi khi đặt hàng:', error);
+            showToast('❌ Lỗi khi đặt hàng:', error);
         }
     };
 
