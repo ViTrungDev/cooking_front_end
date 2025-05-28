@@ -38,5 +38,8 @@ const authApi = {
     updateProfile: (userId, data) => {
         return axiosClient.put(`/user/${userId}`, data);
     },
+    deleteUser: (userId, data) => {
+        return axiosClient.delete(`/user/${userId}`, data);
+    },
 };
 export default authApi;

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+// Tạo instance chính cho các request bình thường
 const axiosClient = axios.create({
     baseURL: 'https://localhost:7187/api',
     headers: {
@@ -9,7 +10,14 @@ const axiosClient = axios.create({
     timeout: 10000,
 });
 
-// Flag để tránh gọi refresh nhiều lần nếu có nhiều request lỗi cùng lúc
+// Tạo instance riêng để gọi refresh token (bỏ qua interceptor)
+const axiosRefresh = axios.create({
+    baseURL: 'https://localhost:7187/api',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
 let isRefreshing = false;
 let failedQueue = [];
 
@@ -21,11 +29,10 @@ const processQueue = (error, token = null) => {
             prom.resolve(token);
         }
     });
-
     failedQueue = [];
 };
 
-// Gắn accessToken vào request
+// Gắn accessToken vào mỗi request
 axiosClient.interceptors.request.use(
     (config) => {
         const token = sessionStorage.getItem('accessToken');
@@ -37,7 +44,7 @@ axiosClient.interceptors.request.use(
     (error) => Promise.reject(error),
 );
 
-// Xử lý response
+// Xử lý response lỗi 401 và tự động refresh token
 axiosClient.interceptors.response.use(
     (response) => response,
     async (error) => {
@@ -45,7 +52,7 @@ axiosClient.interceptors.response.use(
 
         if (error.response?.status === 401 && !originalRequest._retry) {
             if (isRefreshing) {
-                // Nếu đang refresh, push request này vào hàng đợi
+                // Chờ token mới
                 return new Promise((resolve, reject) => {
                     failedQueue.push({ resolve, reject });
                 })
@@ -60,22 +67,20 @@ axiosClient.interceptors.response.use(
             isRefreshing = true;
 
             try {
-                const response = await axios.post(
-                    'https://localhost:7187/api/authentication/refresh-token',
-                    {},
-                    { withCredentials: true }, // Phải gửi cookie
+                const response = await axiosRefresh.post(
+                    '/authentication/refresh-token',
                 );
 
                 const newAccessToken = response.data.accessToken;
                 sessionStorage.setItem('accessToken', newAccessToken);
 
-                axiosClient.defaults.headers.Authorization = `Bearer ${newAccessToken}`;
                 processQueue(null, newAccessToken);
 
+                // Gắn token mới cho request ban đầu
+                originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
                 return axiosClient(originalRequest);
             } catch (err) {
                 processQueue(err, null);
-                // Nếu refresh fail => logout
                 localStorage.clear();
                 sessionStorage.clear();
                 Cookies.remove('refreshToken');

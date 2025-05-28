@@ -15,6 +15,7 @@ import NotFound from '~/pages/NotFound/NotFound';
 import RouterPrivate from '~/Components/RoutesPrivate/RouterPrivate';
 import Admin from '~/pages/Admin/Admin';
 import Manage from '~/Components/Layout/LayoutManage/Manage';
+import ManageUser from '~/pages/manageUser/ManageUser';
 
 const publicRoutes = [
     { path: '/', component: Home },
@@ -37,6 +38,15 @@ const privateRoutes = [
         element: (
             <RouterPrivate requiredRole="admin">
                 <Admin />
+            </RouterPrivate>
+        ),
+        layout: Manage,
+    },
+    {
+        path: '/manage/user',
+        element: (
+            <RouterPrivate requiredRole={'admin'}>
+                <ManageUser />
             </RouterPrivate>
         ),
         layout: Manage,
