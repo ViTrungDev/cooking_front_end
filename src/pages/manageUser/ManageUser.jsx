@@ -127,7 +127,7 @@ function ManageUser() {
         <div className={cx('manage-user')}>
             <div className={cx('container')}>
                 <div className={cx('header')}>
-                    <h1 className={cx('title')}>Danh sách người dùng</h1>
+                    <h1 className={cx('title')}>Quản lý người dùng</h1>
                     <p className={cx('description')}>
                         Danh sách chi tiết người dùng
                     </p>
@@ -160,7 +160,7 @@ function ManageUser() {
 
             <div className={cx('content')}>
                 <div className={cx('table')}>
-                    <p>Id</p>
+                    <p>ID</p>
                     <p>Tên người dùng</p>
                     <p>Số điện thoại</p>
                     <p>Email</p>

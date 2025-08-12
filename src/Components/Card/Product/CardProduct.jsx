@@ -34,7 +34,6 @@ function CradProduct({
                     setLoading(true);
                     const response = await authApi.product();
                     let productsList = response.data.products;
-                    console.log(productsList);
                     if (filterClassify) {
                         productsList = productsList.filter(
                             (product) => product.classify === filterClassify,

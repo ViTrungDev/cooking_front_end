@@ -17,6 +17,26 @@ const authApi = {
     product: (data) => {
         return axiosClient.get('/product/getall', data);
     },
+    createProduct: (data) => {
+        return axiosClient.post('/product/create', data, {
+            headers: {
+                'Content-Type': undefined, // ⬅️ để Axios tự set multipart/form-data đúng chuẩn
+            },
+        });
+    },
+    putProduct: (productId, data) => {
+        return axiosClient.put(`/product/update/${productId}`, data, {
+            headers: {
+                'Content-Type': undefined,
+            },
+        });
+    },
+    deleteProduct: (productId, data) => {
+        return axiosClient.delete(`/product/delete/${productId}`, data);
+    },
+    getProductByID: (productId, data) => {
+        return axiosClient.get(`/product/getbyid/${productId}`, data);
+    },
     blog: (data) => {
         return axiosClient.get('/blog/getAll', data);
     },

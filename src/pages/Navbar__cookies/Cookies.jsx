@@ -17,7 +17,7 @@ function Cookies() {
             try {
                 const response = await authApi.product();
                 const cookiesProducts = response.data.products.filter(
-                    (p) => p.classify === 'Cookies',
+                    (p) => p.classify === 'Cookies&minicake',
                 );
                 setAllProducts(cookiesProducts);
             } catch (error) {
