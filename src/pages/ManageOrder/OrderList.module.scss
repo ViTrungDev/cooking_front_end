@@ -1,0 +1,101 @@
+.order__list {
+    width: 1260px;
+    margin: 40px auto;
+    background: var(--color-white);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    .title {
+        font-size: 28px;
+        font-family: Alice;
+        margin-bottom: 20px;
+        color: var(--color-black);
+    }
+
+    /* Ô tìm kiếm */
+    .searchBox {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+
+        input {
+            width: 300px;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+            font-size: 15px;
+
+            &:focus {
+                border-color: var(--color-btn__lv2);
+                box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+            }
+        }
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+        color: #333;
+
+        th,
+        td {
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background: var(--color-btn__lv2);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        button {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            margin-right: 6px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+
+            &:hover {
+                opacity: 0.85;
+            }
+        }
+
+        .btn__detail {
+            background: var(--color-btn__lv2);
+            color: white;
+        }
+
+        .btn__approve {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn__deliver {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn__delete {
+            background: red;
+            color: white;
+        }
+    }
+
+    .no-data {
+        text-align: center;
+        font-size: 18px;
+        color: #888;
+        font-style: italic;
+        margin-top: 20px;
+    }
+}

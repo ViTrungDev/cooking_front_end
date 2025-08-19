@@ -1,0 +1,130 @@
+@import url('../../Components/Global/GlobalStyle.scss');
+@import url('../../Components/Global/_variables.scss');
+
+.blog__list {
+    width: 1260px;
+    margin: 40px auto;
+    background: var(--color-white);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    .title {
+        font-size: 28px;
+        font-family: Alice;
+        margin-bottom: 4px;
+        color: var(--color-black);
+    }
+
+    .subtitle {
+        font-size: 16px;
+        color: #777;
+        margin-bottom: 20px;
+    }
+
+    /* Thanh công cụ: tìm kiếm + sort + thêm */
+    .toolbar {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+
+        input {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            width: 250px;
+            font-size: 14px;
+        }
+
+        select {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .btn__create {
+            background: var(--color-btn__lv2);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+
+            &:hover {
+                opacity: 0.9;
+            }
+        }
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+        color: #333;
+
+        th,
+        td {
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background: var(--color-btn__lv2);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        button {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            margin-right: 6px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+
+            &:hover {
+                opacity: 0.85;
+            }
+        }
+
+        .btn__detail {
+            background: var(--color-btn__lv2);
+            color: white;
+        }
+
+        .btn__publish {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn__unpublish {
+            background: #ffc107;
+            color: white;
+        }
+
+        .btn__delete {
+            background: red;
+            color: white;
+        }
+    }
+
+    .no-data {
+        text-align: center;
+        font-size: 18px;
+        color: #888;
+        font-style: italic;
+        margin-top: 20px;
+    }
+}

@@ -1,0 +1,80 @@
+@import url('../../Components/Global/GlobalStyle.scss');
+@import url('../../Components/Global/_variables.scss');
+
+.order__detail {
+    width: 1260px;
+    margin: 40px auto;
+    background: var(--color-white);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    .title {
+        font-size: 28px;
+        font-family: Alice;
+        margin-bottom: 20px;
+        color: var(--color-black);
+    }
+
+    .info {
+        font-size: 18px;
+        line-height: 1.6;
+        color: #333;
+        margin-bottom: 30px;
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        select {
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+    }
+
+    .actions {
+        display: flex;
+        gap: 20px;
+
+        .btn__back {
+            background: var(--color-btn__lv2);
+            color: white;
+            padding: 10px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn__approve {
+            background: #28a745; // màu xanh lá
+            color: white;
+        }
+
+        .btn__deliver {
+            background: #007bff; // màu xanh dương
+            color: white;
+        }
+
+        .btn__delete {
+            background: red;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn__delete:hover {
+            opacity: 0.8;
+        }
+    }
+
+    .no-data {
+        text-align: center;
+        font-size: 18px;
+        color: #888;
+        font-style: italic;
+    }
+}

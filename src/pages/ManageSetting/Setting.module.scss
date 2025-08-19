@@ -1,0 +1,233 @@
+// Setting.module.scss
+
+.container {
+    padding: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.settingCard {
+    background-color: white;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #2d3748;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+        content: "⚙️";
+    }
+}
+
+.tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #cbd5e0;
+        border-radius: 4px;
+    }
+}
+
+.tabButton {
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+
+    &:hover:not(.activeTab) {
+        background-color: #f7fafc;
+    }
+}
+
+.activeTab {
+    background-color: #ec4899;
+    color: white;
+    box-shadow: 0 4px 6px rgba(236, 72, 153, 0.2);
+}
+
+.inactiveTab {
+    background-color: #f7fafc;
+    color: #4a5568;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.label {
+    font-weight: 500;
+    color: #2d3748;
+    font-size: 0.95rem;
+}
+
+.input,
+.select,
+.textarea {
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+
+    &:focus {
+        outline: none;
+        border-color: #ec4899;
+        box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.15);
+    }
+
+    &::placeholder {
+        color: #a0aec0;
+    }
+}
+
+.textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.fileInput {
+    border: 1px dashed #cbd5e0;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    width: 100%;
+    background-color: #fafafa;
+    transition: all 0.2s ease;
+
+    &:hover {
+        border-color: #ec4899;
+        background-color: #fff5f7;
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+
+    @media (max-width: 640px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.checkboxGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.checkboxLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: #ec4899;
+    }
+}
+
+.checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: #ec4899;
+    cursor: pointer;
+}
+
+.submitButton {
+    background-color: #ec4899;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+
+    &:hover {
+        background-color: #db2777;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+// Animation for tab switching
+.tabContent {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .settingCard {
+        padding: 1rem;
+        border-radius: 0.75rem;
+    }
+
+    .title {
+        font-size: 1.5rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .tabs {
+        gap: 0.25rem;
+    }
+
+    .tabButton {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+    }
+}

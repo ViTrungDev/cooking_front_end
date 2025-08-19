@@ -1,5 +1,6 @@
 import axiosClient from '~/Api/axiosClient';
 
+
 const authApi = {
     register: (data) => {
         return axiosClient.post('/authentication/register', data);
@@ -61,5 +62,69 @@ const authApi = {
     deleteUser: (userId, data) => {
         return axiosClient.delete(`/user/${userId}`, data);
     },
+    getAllOrderDetail: (data) => {
+        return axiosClient.get('/orderdetails/getAll', data); // endpoint backend phải trả toàn bộ orderdetails
+    },
+
+    
+
+
+// ==== BLOG ====
+
+    getAllBlog: () => axiosClient.get('/blog/getAll'),
+
+    getBlogById: (blogId) => axiosClient.get(`/blog/getById/${blogId}`),
+
+    createBlog: (data) => axiosClient.post('/blog/create', data),
+
+    updateBlog: (blogId, data) => axiosClient.put(`/blog/update/${blogId}`, data),
+
+    updateBlogStatus: (blogId, data) => axiosClient.put(`/blog/updateStatus/${blogId}`, data),
+
+    deleteBlog: (blogId) => axiosClient.delete(`/blog/delete/${blogId}`),
+
+    // ==== ORDER ====
+
+    checkout: (data) => {
+
+        return axiosClient.post('/order/create', data);
+
+    },
+
+    getAllOrder: () => {
+
+        return axiosClient.get('/order/getALL');
+
+    },
+
+    shoppingbuy: (userId) => {
+
+        return axiosClient.get(`/order/getAllbyID?user_id=${userId}`);
+
+    },
+
+    getOrderById: (orderId) => {
+
+        return axiosClient.get(`/order/getById/${orderId}`);
+
+    },
+
+    updateOrderStatus: (orderId, data) => {
+
+        return axiosClient.put(`/order/updateStatus/${orderId}`, data);
+
+    },
+
+    deleteOrder: (orderId) => {
+
+        return axiosClient.delete(`/order/delete/${orderId}`);
+
+    },
+
+
+
+
+
+    
 };
 export default authApi;

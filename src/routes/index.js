@@ -18,6 +18,16 @@ import Manage from '~/Components/Layout/LayoutManage/Manage';
 import ManageUser from '~/pages/manageUser/ManageUser';
 import ManageProduct from '~/pages/ManageProduct/ManageProduct';
 
+// ✅ Giữ lại 1 import duy nhất
+import ManageOrder from '~/pages/ManageOrder/OrderList';
+
+import Statistic from '../pages/manageStatistic/Statistic';
+import Setting from '../pages/ManageSetting/index';
+import OrderDetail from '~/pages/Order/OrderDetail';
+import ManageBlog from '~/pages/ManageBlog/BlogList';
+import BlogDetail from '~/pages/Blog/BlogDetail';
+
+
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/register', component: register },
@@ -31,8 +41,11 @@ const publicRoutes = [
     { path: '/cookies-minicake', component: Cookies },
     { path: '/khuyen-mai', component: Promotion },
     { path: '/profile', component: Profile },
+    { path: '/order/:id', component: OrderDetail },
+    { path: '/blog/:id', component: BlogDetail },
     { path: '/404', component: NotFound },
 ];
+
 const privateRoutes = [
     {
         path: '/admin',
@@ -46,7 +59,7 @@ const privateRoutes = [
     {
         path: '/manage/user',
         element: (
-            <RouterPrivate requiredRole={'admin'}>
+            <RouterPrivate requiredRole="admin">
                 <ManageUser />
             </RouterPrivate>
         ),
@@ -55,8 +68,45 @@ const privateRoutes = [
     {
         path: '/manage/product',
         element: (
-            <RouterPrivate requiredRole={'admin'}>
+            <RouterPrivate requiredRole="admin">
                 <ManageProduct />
+            </RouterPrivate>
+        ),
+        layout: Manage,
+    },
+    // ✅ Chỉ giữ 1 route ManageOrder
+    {
+        path: '/manage/order',
+        element: (
+            <RouterPrivate requiredRole="admin">
+                <ManageOrder />
+            </RouterPrivate>
+        ),
+        layout: Manage,
+    },
+    {
+        path: '/manage/statistic',
+        element: (
+            <RouterPrivate requiredRole="admin">
+                <Statistic />
+            </RouterPrivate>
+        ),
+        layout: Manage,
+    },
+    {
+        path: '/manage/setting',
+        element: (
+            <RouterPrivate requiredRole="admin">
+                <Setting />
+            </RouterPrivate>
+        ),
+        layout: Manage,
+    },
+    {
+        path: '/manage/blogs',
+        element: (
+            <RouterPrivate requiredRole="admin">
+                <ManageBlog />
             </RouterPrivate>
         ),
         layout: Manage,
